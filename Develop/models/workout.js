@@ -10,10 +10,6 @@ const workoutSchema = new Schema({
     },
     exercises: [
         {
-            "_id": false,
-            type: {
-                type: String
-            },
             type: {
                 type: String,
                 trim: true,
@@ -24,33 +20,31 @@ const workoutSchema = new Schema({
                 trim: true,
                 required: "Enter a name for your exercise"
             },
+            duration: Number,
             weight: {
                 type: Number,
+                default: 0,
             },
             sets: {
                 type: Number,
+                default: 0,
             },
             reps: {
-                type: Number
-            },
-            duration: {
                 type: Number,
+                default: 0,
             },
             distance: {
                 type: Number,
-            },
-        },
+                default: 0,
+            }
+        }
     ],
+    totalDuration: {
+        type: Number,
+        default: 0,
+    }
 });
 
-workoutSchema.virtual("Duration").get(function () {
-    let totalTime = 0;
-    this.exercises.forEach((exercise) => {
-        totalTime += exercise.duration   
-    });
-    return totalDuration
-})
+const Workout = mongoose.model("Workout", workoutSchema);
 
-const Workout = mongoose.model("workout", workoutSchema);
-
-module.exports = Workout
+module.exports = Workout;
